@@ -1,0 +1,32 @@
+[
+  {
+    "comp_name": "HVAC Repair Co.",
+    "primary_name": "John Doe",
+    "comp_phone": "123456789",
+    "comp_email": "hvac@repair",
+    "job_title": "HVAC Repair",
+    "job_description": "I need two strong men to come replace my AC system in the home office.",
+    "location": "the home office",
+    "salary": "20$",
+    "tools": "Not Provided",
+    "transport": "Not Provided",
+    "language": "English",
+    "application_deadline": "2023-11-14",
+    "posted_at": "2023-11-15 22:52:04"
+  },
+  {
+    "comp_name": "Lawn Mowing Co.",
+    "primary_name": "Jane Doe",
+    "comp_phone": "123456788",
+    "comp_email": "lawn@mowing",
+    "job_title": "Lawn Mowin'",
+    "job_description": "test",
+    "location": "here",
+    "salary": "1 wood nickel",
+    "tools": "Not Provided",
+    "transport": "Not Provided",
+    "language": "English",
+    "application_deadline": "2023-11-17",
+    "posted_at": "2023-11-16 20:01:45"
+  }  
+]

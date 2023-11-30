@@ -1,0 +1,49 @@
+{
+    "u_data": [
+        {
+            "123@gmail.com": "123",
+            "FirstName": "Leslie",
+            "LastName": "Mathews",
+            "Phone": "9991112222",
+            "Company": "csus",
+            "Website": "123",
+            "Registration_Type__c": "Admin"
+        },
+        {
+            "piklings@gmail.com": "123",
+            "FirstName": "Stewart",
+            "LastName": "Little",
+            "Phone": "916-222-2222",
+            "Company": "csus",
+            "Website": "csus.edu",
+            "Registration_Type__c": "Interested in contracting Titan Construction Partners"
+        },
+        {
+            "piklings2255@gmail.com": "123",
+            "FirstName": "John",
+            "LastName": "Doe",
+            "Phone": "916-222-2222",
+            "Company": "Generic Office Company",
+            "Website": "goc.edu",
+            "Registration_Type__c": "Interested in becoming a Titan Construction Partner (new contractors)"
+        },
+        {
+            "piklings2552@gmail.com": "123",
+            "FirstName": "Royal",
+            "LastName": "Smith",
+            "Phone": "916-222-2222",
+            "Company": "Company 1",
+            "Website": "comp.edu",
+            "Registration_Type__c": "Interested in becoming a Titan Construction Partner (new contractors)"
+        },
+        {
+            "m@email": "12345",
+            "FirstName": "m",
+            "LastName": "m",
+            "Phone": "1234567",
+            "Company": "example",
+            "Website": "www",
+            "Registration_Type__c": "Interested in contracting Titan Construction Partners"
+        }
+    ]
+}
