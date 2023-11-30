@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+{% load static %}
+<style>
+
+.topnav { /*This is the navigation for the homepage. Unlike the other pages, the nav has no background.*/
+    overflow: hidden;
+}
+  
+.topnav a { /* */
+    color: #f2f2f2;
+    padding: 14px 16px;
+}
+  
+.topnav a:hover { /* */
+    background-color:rgb(255, 255, 255);
+    color: black;
+	text-decoration: underline;
+}
+
+.topContainer a{ /*Container for the navigation*/
+    float: right; 
+    margin-right: 1.5%;
+    padding: 14px 16px;
+    text-decoration:none;
+    font-size: 20px;
+	font-family: Verdana, sairf;
+} 
+
+.topContainer_register {
+    background-color:  #052534;
+    overflow: hidden;
+    height: 96px;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topContainer_register a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px; 
+    font-family: 'Alata';
+    font-style: normal;
+    font-weight: 400;
+    margin-right: 1.5%;
+  }
+  
+  /* Change the color of links on hover */
+  .topContainer_register a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+.bgImg {
+    position: relative;
+    background-color: rgba(5, 22, 104, 0.35);
+
+    min-height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+
+.bgImg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../static/images/image.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+
+.homeHeader { /*Heading on top of Background Image on the Home Page. This displays the text "Local Business Solutions*/
+    color: white;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 97.5%;
+    padding: 15px 25px 10px 7px;
+    position: relative;
+	margin-bottom: 20px;
+	font-family: Georgia, serif;
+}
+
+.helpButton{ /*This is the Find Help button on the Home page that links to the registration page*/
+    width: 200px;
+    height: 40px;
+    background: #FFFFFF;
+    font-weight: bold;
+    font-size: 24px;
+    color: #00189B;
+    border-radius: 2px;
+    padding: 15px 25px 1px 25px;
+    margin-left: 50px;
+	display: inline-block;
+	font-family: Arial Narrow, sans-serif;
+	text-decoration: none;
+	text-align: center;
+}
+
+.helpButton:hover {
+    text-decoration: underline;
+}
+
+.homeImageText { /*This is the container for the homeHeader and helpButton*/
+    padding: 10px 15px 30px 15px;
+}
+
+.logo { /*This is the logo displayed on the Home Page*/
+    width: 300px;
+    height: auto;
+	margin-top: -45px;
+	margin-bottom: -35px;
+  }
+
+.bigContainer { /*This is the container that encompasses all 9 cards on the Home page*/
+    display: flex;
+    justify-content: center;
+}
+
+.cardContainer { /*The container for each individual 9 cards on the Home page*/
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1), 5px -5px 14px rgba(0, 0, 0, 0.1);
+    width: 20%;
+    margin: 10px;
+    text-align: center;
+    border-bottom: solid;
+    border-bottom-color:rgba(37, 71, 254, 0.31);
+}
+
+.innerCard { /*The inner container that encompasses the inside of each individual card*/
+    padding: 20px 50px;
+}
+
+.innerCard p { /*For the text inside each care*/
+    color: #00189B;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 97.5%;
+    text-align: center;
+}
+
+.innerCard h3 { /*For the title of each card*/
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 97.5%;
+}
+
+.text { /* */
+    padding: 60px 40px;
+}
+
+.center { /*For the title and text displayed under the image on the Home Page*/
+    text-align: center;
+    vertical-align: top;
+    padding: 20px 20px 50px 20px;
+    margin-left: 18%;
+    margin-right: 18%;
+	margin-top: 80px;
+	font-size: 28px;
+}
+
+.reviewText h2 { /*The text displayed before the review cards*/
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 97.5%;
+    text-align: center;
+    color: #00189B;
+    padding-top: 120px;
+}
+
+
+.reviewText h3 { /*The title displayed before the review cards*/
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 97.5%;
+    text-align: center;
+    color: #000000;
+}
+
+.reviewCards { /*This is the container for all of the 3 review cards*/
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2%;
+}
+
+.indvReviewCard { /*This is the container for each individual review card*/
+    width: 321px;
+    height: 550px;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1), 5px -5px 14px 5px rgba(0, 0, 0, 0.02);
+    margin: 10px;
+    text-align: center;
+}
+
+.indvReviewCard img { /*The image of a left open quotation mark*/
+    margin: 22px 226px 0px 20px;
+}
+
+.indvReviewCard h2 { /*The title of the review card*/
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 97.5%;
+    text-align: center;
+    color: #000000;
+    height: 40%;
+    margin: 122px 20px 0px 26px;
+}
+
+.indvReviewCard p {/*The text inside of the review card*/
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 97.5%;
+    color: #00189B;
+    position:static;
+}
+
+/***********Raf Footer***********/
+.footer-wrap {
+  background: #052534;
+  color: white;
+  padding: 10px 0px;
+  position: bottom;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.footer-logo {
+  text-align: left;
+  margin-top: -90px;
+}
+
+.sitefooter-link-item {
+  font-size: 12px;
+  font-family: verdana, serif;
+  color: white;
+  text-decoration: none;
+  margin: 20px 0;
+}
+
+.footerLinks-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -90px;
+}
+
+.sitefooter-link-item:hover {
+  color: #deff5b;
+  text-decoration: underline;
+}
+
+
+</style>
+
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home | Rocky Mountain Work Services </title>
+        <meta name="description" content="Home page for Website">
+        <div class="bgImg">
+        <div class="topContainer">
+            <div class="topnav"> 
+                <a href="../contact">Contact</a> 
+                <a href="../login">Login</a>
+                <a href="../about">About Us</a>    
+                <a href="">Home</a> 
+            </div>     
+        </div>
+            <div class="homeImageText">
+                <img class="logo" src="{% static 'images/logoLongWhite.png' %}">
+                <h1 class="homeHeader">Rocky Mountain<br>Work Service</h1>
+                <a class="helpButton" href="../register" target="_blank">FIND HELP</a>
+
+            </div>
+        </div>
+        
+    </head>
+    
+    <body>
+        <div class="center">
+            <h2>What We Offer.</h2>
+            <p> Our skilled team of laborers perform construction tasks and have the experience and certifications to provide our clients with service that is unparalleled in the industry.
+            </p>
+        </div>
+         
+    <div class="bigContainer">
+         <div class="cardContainer">
+            <div class="innerCard">
+                <h3>General Construction</h3>
+                <p>General Construction including steel building erection, framing, and all items of construction in oil & gas, commercial, and heavy industrial industries.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Welding Construction</h3>
+                <p>Piping fabrication, facility construction in oil & gas and heavy industrial industry.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Concrete</h3>
+                <p>Foundations, flat work, and all other forms of concrete construction.
+                </p>
+            </div>
+        </div>
+    </div>
+        
+    <div class="bigContainer">
+         <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Excavation</h3>
+                <p>General excavation site preparation and stream bank rehabilitation.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Sandblasting/Painting</h3>
+                <p>Sandblasting and coatings provided in the field and in our facility.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Scaffolding</h3>
+                <p>Scaffolding installation in all industries.
+                </p>
+            </div>
+        </div>
+    </div>
+        
+    <div class="bigContainer">
+         <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Pipeline Maintenance</h3>
+                <p>All forms of pipeline maintenance including coatings, repairs, and anomaly digs.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Fabrication</h3>
+                <p>All forms of shop fabrication including piping, structural steel, ferrous and non-ferrous materials.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cardContainer">
+            <div class="innerCard">
+                <h3>Roustabout</h3>
+                <p>General oil and gas field facility maintenance.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviewText">
+        <h2>OUR CUSTOMERS HAVE SPOKEN</h2>
+        <h3>Why They Trust Us.</h3>
+    </div>
+
+    <div class="reviewCards">
+        <div class="indvReviewCard">
+            <img src="{% static 'images/quoteIcon.png' %}">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>EXAMPLE COMPANY, FILLER, NAME HERE AT RANCHO CUCAMONGA</p>
+        </div>
+
+        <div class="indvReviewCard">
+            <img src="{% static 'images/quoteIcon.png' %}">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>EXAMPLE COMPANY, FILLER, NAME HERE AT RANCHO CUCAMONGA</p>
+        </div>
+
+        <div class="indvReviewCard">
+            <img src="{% static 'images/quoteIcon.png' %}">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>EXAMPLE COMPANY, FILLER, NAME HERE AT RANCHO CUCAMONGA</p>
+        </div>
+    </div>
+
+<div class="footer-wrap">
+    <div class="content-width">
+        <div class="container-fluid">
+            <div class="row center">
+                <div class="col-md-3">
+                    <div class="footer-logo left">
+                        <a href="https://titan307.com/team/">
+                            <img src="{% static 'images/logoLongWhite.png' %}" itemprop="logo" alt="Logo" style="width:200px; background-image:none;" ></img>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6"><div class="link">
+                    <div class="site-footer">
+                        <div class="footerLinks-actions">
+                            <div class="about">
+                                <span>
+                                    <a href="/home/privacy" class="sitefooter-link-item" rel="nofollow" target="_top">Privacy &amp; Security Statement</a>
+                                    <a href="/home/terms" class="sitefooter-link-item" rel="nofollow" target="_top">Terms &amp; Conditions</a>
+                                </span>
+                            </div>
+                                <a href="about" class="sitefooter-link-item" rel="nofollow" target="_top">About our service</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-3"><div></div>
+<script type="text/javascript"></script>
+        
+    </body>
+</html>

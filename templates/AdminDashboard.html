@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> Dashboard | Rocky Mountain Work Services</title>
+        <meta name="description" content="Contractor Dashboard">
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+      </head>
+        
+    <body>
+        <header>
+            <div class="sidebar">
+              <div class="logo-details">
+                  <div class="logo_name">Rocky Mountain<br> Work Services </div>
+                  <i class='bx bx-menu' id="btn" ></i>
+              </div>
+              <ul class="nav-list">
+                <li>
+                  <a href="/home">
+                    <i class='bx bx-home'></i>
+                    <span class="links_name">Home</span>
+                  </a>
+                   <span class="tooltip">Home</span>
+                </li>
+                <li>
+                 <a href="#">
+                   <i class='bx bx-book-alt' ></i>
+                   <span class="links_name">My Jobs</span>
+                 </a>
+                 <span class="tooltip">My Jobs</span>
+               </li>
+               <li>
+                 <a href="#">
+                   <i class='bx bx-book-add' ></i>
+                   <span class="links_name">Create Job</span>
+                 </a>
+                 <span class="tooltip">Create Job</span>
+               </li>
+               <li>
+                 <a href="#">
+                   <i class='bx bx-pie-chart-alt-2' ></i>
+                   <span class="links_name">Analytics</span>
+                 </a>
+                 <span class="tooltip">Analytics</span>
+               </li>
+               <li>
+                 <a href="#">
+                   <i class='bx bx-folder' ></i>
+                   <span class="links_name">File Manager</span>
+                 </a>
+                 <span class="tooltip">Files</span>
+               </li>
+               <li>
+                 <a href="#">
+                   <i class='bx bx-bell' ></i>
+                   <span class="links_name">Notifications</span>
+                 </a>
+                 <span class="tooltip">Notifications</span>
+               </li>
+               <li>
+                 <a href="#">
+                   <i class='bx bx-cog' ></i>
+                   <span class="links_name">Settings</span>
+                 </a>
+                 <span class="tooltip">Settings</span>
+               </li>
+               <li class="logout">
+                  <a href="login.html">
+                   <i class='bx bx-log-out' id="log_out" ></i>
+                   <span class="logout">Logout</span>
+               </a>
+               </li>
+               <li class="profile">
+                  <i class ="bx bx-user" id="profile"></i>
+                  <span class="profile">Profile</span>
+               </li>
+              </ul>
+            </div>
+          </header>
+          
+        <div class="containerCard">
+			<div class="card">
+				<h2>Welcome, {{ user_data.FirstName }}!</h2>
+				<br><p>{{ user_data.FirstName }} {{ user_data.LastName }}</p>							
+				<p>Company: {{ user_data.Company }}</p>					
+				<p>Website: {{ user_data.Website }}</p>					
+				<p>Phone: {{ user_data.Phone }}</p>				
+			</div>
+        </div>
+<div class="bigBoxContractor">
+    <div class="jobAssigner">
+        <h2>Job Assignments</h2><br>
+        {% if job_data %}
+            {% for job in job_data %}
+                <div class="jobContainer">
+                    <div class="jobDetails">
+                        <ul>
+                            <li>
+                              <strong>Company Name:</strong> {{ job.comp_name }}<br>
+                                <strong>Job Title:</strong> {{ job.job_title }}<br>
+                                <strong>Job Description:</strong> {{ job.job_description }}<br>
+                                <strong>Location:</strong> {{ job.location }}<br>
+                                <strong>Salary:</strong> {{ job.salary }}<br>
+                                <strong>Are Tools Provided?:</strong> {{ job.tools }}<br>
+                                <strong>Is Transportation Provided?:</strong> {{ job.transport }}<br>
+                                <strong>Language Requirements:</strong> {{ job.language }}<br>
+                                <strong>Application Deadline:</strong> {{ job.application_deadline }}<br>
+                                <strong>Posted At:</strong> {{ job.posted_at }}<br>
+                                <br>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="assignButtonContainer">
+                        <form action="{% url 'assign_job_posting' %}" method="POST">
+                            {% csrf_token %}
+                            <select class="contractorsDropdown" name="contractor_email" style="display: none;">
+                                {% if active_contractors %}
+                                    {% for contractor_data in active_contractors %}
+                                        <option value="{{ contractor_data.email }}">
+                                            {{ contractor_data.FirstName }} {{ contractor_data.LastName }}
+                                        </option>
+                                    {% endfor %}
+                                {% else %}
+                                    <option value="" disabled>No contractors available</option>
+                                {% endif %}
+                            </select>
+                            <!-- Hidden input fields for job details -->
+                            <input type="hidden" name="comp_name" value="{{ job.comp_name }}">
+                            <input type="hidden" name="primary_name" value="{{ job.primary_name }}">
+                            <input type="hidden" name="comp_email" value="{{ job.comp_email}}">
+                            <input type="hidden" name="comp_phone" value="{{ job.comp_phone }}">
+                            <input type="hidden" name="job_title" value="{{ job.job_title }}">
+                            <input type="hidden" name="job_description" value="{{ job.job_description }}">
+                            <input type="hidden" name="location" value="{{ job.location }}">
+                            <input type="hidden" name="salary" value="{{ job.salary }}">
+                            <input type="hidden" name="tools" value="{{ job.tools }}">
+                            <input type="hidden" name="transport" value="{{ job.transport }}">
+                            <input type="hidden" name="language" value="{{ job.language }}">
+                            <input type="hidden" name="application_deadline" value="{{ job.application_deadline }}">
+                            <input type="hidden" name="posted_at" value="{{ job.posted_at }}">
+                            <!-- Move these outside the loop -->
+                            <input type="hidden" name="first_name" class="first_name">
+                            <input type="hidden" name="last_name" class="last_name">
+                            <button class="assignButton" type="button">Assign</button>
+                            <!-- Add the Confirm button with type "submit" -->
+                            <button class="confirmButton" type="submit" style="display: none;">Confirm</button>
+                        </form>
+                    </div>
+                    <!-- Hidden div for displaying the message -->
+                    <div class="refreshMessage" style="display: none;">Please refresh your browser page!</div>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No job listings available.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var assignButtons = document.querySelectorAll('.assignButton');
+    var confirmButtons = document.querySelectorAll('.confirmButton');
+
+    assignButtons.forEach(function (assignButton, index) {
+        assignButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var jobContainer = this.closest('.jobContainer');
+            var contractorsDropdown = jobContainer.querySelector('.contractorsDropdown');
+            var confirmButton = jobContainer.querySelector('.confirmButton');
+
+            var firstNameInput = jobContainer.querySelector('.first_name');
+            var lastNameInput = jobContainer.querySelector('.last_name');
+
+            var selectedOption = contractorsDropdown.options[contractorsDropdown.selectedIndex];
+			
+            var contractorName = selectedOption.text;
+            var [firstName, lastName] = contractorName.split(' ');
+
+            firstNameInput.value = firstName;
+            lastNameInput.value = lastName;
+
+            contractorsDropdown.style.display = contractorsDropdown.style.display === 'none' ? 'block' : 'none';
+            confirmButton.style.display = confirmButton.style.display === 'none' ? 'inline-block' : 'none';
+            
+            assignButton.style.display = 'none';
+        });
+    });
+
+    confirmButtons.forEach(function (confirmButton) {
+        confirmButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var jobContainer = this.closest('.jobContainer');
+            var formData = new FormData(jobContainer.querySelector('form'));
+            var refreshMessage = jobContainer.querySelector('.refreshMessage');			
+			var contractorsDropdown = jobContainer.querySelector('.contractorsDropdown');	
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "assign_job_posting" %}', true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message);  // Display the response message
+                    } else {
+                        alert('Error: Unable to communicate with the server.');
+                    }
+                }
+            };
+            refreshMessage.style.display = 'block';			
+            xhr.send(formData);
+            confirmButton.style.display = 'none';
+			contractorsDropdown.style.display = 'none';
+        });
+    });
+});
+
+</script>
+ <script>
+              let sidebar = document.querySelector(".sidebar");
+              let closeBtn = document.querySelector("#btn");
+            
+              closeBtn.addEventListener("click", ()=>{
+                sidebar.classList.toggle("open");
+                menuBtnChange();
+              });
+            
+              function menuBtnChange() {
+               if(sidebar.classList.contains("open")){
+                 closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+               }else {
+                 closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+               }
+              }
+  
+              function changeParentIframe(source){
+                document.getElementById('webpage').src = source;
+              }
+          </script>
+  
+        
+    </body>
+</html>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif;
+}
+/*css for sidebar */
+.sidebar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 78px;
+  background: #11101D;
+  padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+.sidebar.open{
+  width: 250px;
+}
+.sidebar .logo-details{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sidebar .logo-details .icon{
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.sidebar .logo-details .logo_name{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  opacity: 1;
+}
+.sidebar .logo-details #btn{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.sidebar.open .logo-details #btn{
+  text-align: right;
+}
+.sidebar i{
+  color: #fff;
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+}
+.sidebar .nav-list{
+  margin-top: 20px;
+  height: 100%;
+}
+.sidebar li{
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+}
+.sidebar li .tooltip{
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip{
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sidebar.open li .tooltip{
+  display: none;
+}
+.sidebar li a{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #11101D;
+}
+.sidebar li a:hover{
+  background: #FFF;
+}
+.sidebar li a .links_name{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+.sidebar.open li a .links_name{
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i{
+  transition: all 0.5s ease;
+  color: #11101D;
+}
+.sidebar li i{
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+.sidebar li.logout{
+  position: fixed;
+  height: 60px;
+  width: 78px;
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.sidebar.open li.logout{
+  width: 250px;
+}
+.sidebar .logout {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+}
+.sidebar li.profile{
+    position: fixed;
+    height: 110px;
+    width: 78px;
+    left: 0;
+    bottom: -14px;
+    padding: 10px 14px;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+.sidebar.open li.profile{
+    width: 250px;
+}
+.sidebar .profile {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+}
+.home-section{
+  position: relative;
+  background: #E4E9F7;
+  min-height: 100vh;
+  top: 0;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.sidebar.open ~ .home-section{
+  left: 250px;
+  width: calc(100% - 250px);
+}
+.home-section .text{
+  display: inline-block;
+  color: #11101d;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px
+}
+@media (max-width: 420px) {
+  .sidebar li .tooltip{
+    display: none;
+  }
+}
+
+/********************************************************************************************************************************/
+/*css for big container on left */
+.containerBig {
+  margin-left: 5%;
+}
+
+iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+}
+
+.containerCard {
+  display: flex;
+  justify-content: center;
+}
+/* css for middle container */
+.card {
+  width: 75%; 
+  height: 200px;
+  box-shadow: 5px -5px 14px 5px rgba(0, 0, 0, 0.05);
+  border-bottom:8px solid rgba(11, 63, 87, 1);
+  border-left: 1px solid rgba(214, 214, 214, 1);
+  border-right: 1px solid rgba(214, 214, 214, 1);
+  border-top: 1px solid rgba(214, 214, 214, 1);
+  margin: 1%;
+  margin-top: 4.5%;
+  padding: 10px 10px 10px 10px;
+}
+
+.card h2, .bigBox h2, .bigBoxContractor h2 {
+  font-family: sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  padding-left: 5px;
+}
+
+.card a, .bigBox a, .bigBoxContractor a {
+  color: blue;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: sans-serif;
+  padding: 15px;
+  line-height: 28px;
+}
+
+.bigBox, .bigBoxContractor {
+  width: 75%;
+  height: auto;
+  box-shadow: 5px -5px 14px 5px rgba(0, 0, 0, 0.05);
+  border-bottom:8px solid rgba(11, 63, 87, 1);
+  border-left: 1px solid rgba(214, 214, 214, 1);
+  border-right: 1px solid rgba(214, 214, 214, 1);
+  border-top: 1px solid rgba(214, 214, 214, 1);
+  margin: 1%;
+  margin: auto;
+  margin-bottom: 2%;
+  padding: 10px 10px 10px 10px;
+}
+
+.bigBoxClient{
+  width: 75%;
+  box-shadow: 5px -5px 14px 5px rgba(0, 0, 0, 0.05);
+  border-bottom:8px solid rgba(11, 63, 87, 1);
+  border-left: 1px solid rgba(214, 214, 214, 1);
+  border-right: 1px solid rgba(214, 214, 214, 1);
+  border-top: 1px solid rgba(214, 214, 214, 1);
+  margin: 1%;
+  margin: auto;
+  padding: 10px 10px 10px 10px;
+}
+/* css for work request box on admin page */
+.bigBox {
+  background-image: url("workRequestForm.png");
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* overall css */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+  font-size: 10px;
+}
+.row {margin: 0 -5px;}
+
+.profile {
+  margin: auto;
+  margin-top: 4.5%;
+  padding: 10px 10px 10px 10px;
+}
+
+.innerProfile {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profileRow{
+  display: flex;
+  justify-content: space-between;
+  width:100%;
+  padding: 10px;
+}
+
+.profileRowAttribute{
+  width:75%;
+  margin-bottom: 16px;
+}
+
+.profileRow label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.profileRowAttributeLabel{
+  width:75%;
+  color: rgb(0, 0, 0);
+  padding: 10px 15px;
+  background-color: rgb(191, 220, 231);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profileHeading{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 25px;
+  align-items: center;
+}
+
+.editProfileButton{
+  color:#1d1b31;
+  background-color: #FFF;
+  box-shadow: 5px -5px 14px 5px rgba(0, 0, 0, 0.05);
+  padding:5px;
+  border: solid 1px #ccc;
+  border-radius: 6px;
+}
+
+.editProfileButton:hover{
+  background-color: rgb(226, 225, 225);
+  border: solid 1.5px;
+}
+
+.registrationContainer {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.fieldSet {
+  margin: auto;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 1em 2em;
+  border: solid 1px #ccc;
+  border-radius: 6px;
+}
+
+.title {
+  font-size: 2.5em;
+  padding: 0 .25em;
+  color: #646464;
+  width: auto;
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+label {
+  margin-top: 1em;
+  text-align: center;
+}
+
+input {
+  padding: .3em;
+  border: solid 1px #999;
+}
+
+input[type="text"] {
+  width: 15em;
+}
+
+textarea {
+  min-width: 50%;
+  min-height: 8em;
+  padding: .5em;
+  border: solid 1px #999;
+}
+
+
+
+    .jobContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px; /* Adjust the margin as needed */
+    }
+
+    .jobDetails {
+        flex: 1; /* Take up all available space in the flex container */
+    }
+
+    .assignButtonContainer {
+        position: relative;
+		width: auto;
+    }
+
+    .contractorsDropdown {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 100%;
+        min-width: 150px; /* Adjust as needed */
+        border: 1px solid #ccc;
+        background-color: #fff;
+        padding: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+</style>
